@@ -5,7 +5,7 @@ from blog.models import User, Post
 from blog import app,db,argon2
 from flask_login import (login_user, current_user,
      logout_user, login_required)
-
+from flask_admin.contrib.sqla import ModelView
 
 @app.route("/")
 @app.route("/home")
@@ -42,7 +42,7 @@ def register():
      methods = ['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        redirect(url_for('landing'))
+        return redirect(url_for('landing'))
     else:
         form = LoginForm()
         if form.validate_on_submit():
@@ -68,3 +68,8 @@ def logout():
 @login_required
 def profile():
     return render_template('profile.html')
+
+@app.route('/admin')
+@login_required
+def admin():
+    return render_template()
