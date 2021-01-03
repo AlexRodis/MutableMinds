@@ -32,14 +32,15 @@ def register():
                 email=form.email.data)
             db.session.add(user)
             db.session.commit()
-            flash(f'<p>Account created for {form.username.data}.</p>\
-            <p>You can now log in.</p>',
+            flash(f'Account created for {form.username.data}.\
+            You can now log in',
                 category='success')
             return redirect(url_for('landing'))
         return render_template('register.html', form = form)
 
 @app.route('/login',
-     methods = ['GET', 'POST'])
+     methods = ['GET', 'POST']
+     )
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('landing'))
@@ -68,8 +69,3 @@ def logout():
 @login_required
 def profile():
     return render_template('profile.html')
-
-@app.route('/admin')
-@login_required
-def admin():
-    return render_template()
